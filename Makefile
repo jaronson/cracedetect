@@ -7,7 +7,7 @@ LIBS     := opencv
 SRCEXT   := cpp
 SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS   := -g -std=c++11
+CFLAGS   := -pipe -g -std=c++11
 LFLAGS   := $(shell pkg-config $(LIBS) --libs)
 IFLAGS   := -I include -I vendor $(shell pkg-config $(LIBS) --cflags)
 

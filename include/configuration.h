@@ -1,18 +1,14 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include "json.h"
+#include <opencv2/opencv.hpp>
 
-class Configuration {
-  private:
-    std::string filepath;
+using namespace cv;
 
-  public:
-    Configuration(const std::string filepath);
-    void readConfig();
+struct config_t {
+    string recognizer_model_path;
 };
+
+extern config_t CONFIG;
 
 #endif

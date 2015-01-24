@@ -1,15 +1,10 @@
 #include <iostream>
-
-#include "utils.h"
 #include "configuration.h"
-#include "easylogging++.h"
-
-INITIALIZE_EASYLOGGINGPP
+#include "recognizer.h"
 
 using namespace std;
 
 int main(int argc, char ** argv){
-  Configuration config = Configuration("config/racedetect.json");
-
+  cout << CONFIG.recognizer_model_path;
   return 0;
 }
