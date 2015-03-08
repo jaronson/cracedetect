@@ -5,6 +5,7 @@
 #include "easylogging++.h"
 #include "environment.h"
 #include "utils.h"
+#include "detector.h"
 
 using namespace cv;
 using namespace std;
