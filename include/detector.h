@@ -11,6 +11,10 @@ namespace env = environment;
 
 class BaseDetector {
   public:
+    vector<Rect> find(Mat &image, vector<Rect> &rects);
+    void         loadClassifier();
+
+  protected:
     CascadeClassifier classifier;
 
     double classifier_scale_factor  = 1.3;
@@ -18,12 +22,10 @@ class BaseDetector {
     int    classifier_flags         = 0 | CV_HAAR_SCALE_IMAGE;
     Size   min_size                 = Size(30,30);
 
-    virtual const string getCascadeName();
-    void loadClassifier();
-    void normalizeImage(Mat image, Mat image_out);
-    void preprocessImage(Mat image, Mat image_out);
-    vector<Rect> find(Mat image);
-
+    virtual const string getCascadeName() = 0;
+    Mat normalizeImage(Mat &image, Mat &image_out);
+    Mat preprocessImage(Mat &image, Mat &image_out);
+    vector<Rect> detect(Mat &image, vector<Rect> &rects);
 };
 
 class FrontalFaceDetector : public BaseDetector {
@@ -38,6 +40,7 @@ class ProfileFaceDetector : public BaseDetector {
     virtual const string getCascadeName() override {
       return "lbp/profileface.xml";
     };
+    vector<Rect> find(Mat &image, vector<Rect> &rects);
 };
 
 #endif
