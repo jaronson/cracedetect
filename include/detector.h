@@ -11,7 +11,7 @@ namespace env = environment;
 
 class BaseDetector {
   public:
-    vector<Rect> find(Mat &image, vector<Rect> &rects);
+    vector<Rect> find(Mat &image, Mat &processed_image, vector<Rect> &rects);
     void         loadClassifier();
 
   protected:
@@ -40,7 +40,7 @@ class ProfileFaceDetector : public BaseDetector {
     virtual const string getCascadeName() override {
       return "lbp/profileface.xml";
     };
-    vector<Rect> find(Mat &image, vector<Rect> &rects);
+    vector<Rect> find(Mat &image, Mat &processed_image, vector<Rect> &rects);
 };
 
 #endif

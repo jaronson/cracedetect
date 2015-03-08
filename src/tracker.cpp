@@ -1,7 +1,8 @@
 #include "tracker.h"
 
 FaceTracker::FaceTracker(){
-  initClassifiers();
+  frontal_detector.loadClassifier();
+  profile_detector.loadClassifier();
 };
 
 // Public methods
@@ -29,39 +30,36 @@ void FaceTracker::run(){
 }
 
 void FaceTracker::detect(){
-  cvtColor(frame_in, normalized_frame, CV_BGR2GRAY);
-  equalizeHist(normalized_frame, normalized_frame);
+  Mat processed;
+  vector<Rect> frontal_rects;
+  vector<Rect> profile_rects;
 
-  for(auto it : classifiers){
-    vector<Rect> rects;
+  frontal_detector.find(frame_in, processed, frontal_rects);
+  profile_detector.find(frame_in, processed, profile_rects);
 
-    it.detectMultiScale(normalized_frame, rects, 1.3, 4, 0);
-
-    LOG(INFO) << "Found " << rects.size() << " faces";
-
-    found_rects.push_back(rects);
-  }
+  found_rects.push_back(frontal_rects);
+  found_rects.push_back(profile_rects);
 }
 
 void FaceTracker::display(){
   Scalar color;
   int i = 0;
 
-  for(auto vrects : found_rects){
+  for(auto rect_set : found_rects){
     if(i % 2 == 0){
       color = Scalar(0, 255, 0);
     } else {
       color = Scalar(0, 0, 255);
     }
 
-    for(auto rect : vrects){
+    for(auto rect : rect_set){
       rectangle(frame_in, rect.tl(), rect.br(), color);
     }
 
     i++;
   }
 
-  imshow("Faces", frame_in);
+  cv::imshow("Faces", frame_in);
   found_rects.clear();
 }
 
@@ -69,12 +67,4 @@ void FaceTracker::display(){
 
 void FaceTracker::initCapture(){
   capture = cvCaptureFromCAM(0);
-}
-
-void FaceTracker::initClassifiers(){
-  for(auto it : cascades){
-    CascadeClassifier classifier;
-    classifier.load(env::getCascadePath(it));
-    classifiers.push_back(classifier);
-  }
 }
