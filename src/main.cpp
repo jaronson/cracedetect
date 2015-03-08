@@ -1,10 +1,12 @@
 #include <iostream>
-#include "configuration.h"
-#include "recognizer.h"
+#include "easylogging++.h"
+#include "tracker.h"
+
+INITIALIZE_EASYLOGGINGPP
 
 using namespace std;
 
 int main(int argc, char ** argv){
-  cout << CONFIG.recognizer_model_path;
-  return 0;
+  FaceTracker tracker;
+  tracker.run();
 }

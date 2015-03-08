@@ -6,10 +6,14 @@
 #include <vector>
 #include <string>
 #include <glob.h>
+#include <opencv2/opencv.hpp>
+
+using namespace std;
+using namespace cv;
 
 namespace utils {
-  std::vector<std::string> glob(const std::string& pattern);
-  std::vector<std::string> readFile(const std::string& path);
+  vector<string> glob(const string& pattern);
+  void normalizeImage(Mat source, Mat target);
 }
 
 #endif

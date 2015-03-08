@@ -20,19 +20,8 @@ namespace utils {
     return ret;
   }
 
-  vector<string> readFile(const string& path){
-    vector<string> dict;
-    ifstream input_stream(path);
-    string word;
-
-    if(input_stream){
-      while(input_stream >> word){
-        dict.push_back(word);
-      }
-    }
-
-    input_stream.close();
-
-    return dict;
+  void normalizeImage(Mat source, Mat target){
+    cvtColor(source, target, CV_BGR2GRAY);
+    equalizeHist(target, target);
   }
 }

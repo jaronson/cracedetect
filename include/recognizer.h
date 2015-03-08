@@ -5,7 +5,6 @@
 #include <opencv2/opencv.hpp>
 
 #include "utils.h"
-#include "configuration.h"
 
 using namespace cv;
 using namespace std;
