@@ -27,9 +27,17 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('build', [
-    'shell:lint',
+  grunt.registerTask('lint', [
+    'shell:lint'
+  ]);
+
+  grunt.registerTask('make', [
     'shell:make'
+  ]);
+
+  grunt.registerTask('all', [
+    'lint',
+    'make'
   ]);
 
   grunt.registerTask('default', [
