@@ -21,7 +21,7 @@ void FaceTracker::run() {
         LOG(INFO) << "No captured frame!";
       }
 
-      int c = waitKey(10);
+      int c = cv::waitKey(10);
 
       if ((0xFF & c) == 27) {
         break;

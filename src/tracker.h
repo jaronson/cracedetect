@@ -12,6 +12,7 @@ namespace env = environment;
 
 using std::vector;
 using cv::Mat;
+using cv::Scalar;
 
 class FaceTracker {
  public:

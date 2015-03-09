@@ -1,30 +1,34 @@
-#include "detector.h"
+#include "./detector.h"
+#include <string>
+#include <vector>
 
 /*
  * BaseDetector
  */
 
-vector<Rect> BaseDetector::find(Mat &image, Mat &processed_image, vector<Rect> &rects) {
+vector<Rect> BaseDetector::find(Mat &image, Mat &processed_image,
+    vector<Rect> &rects) {
   preprocessImage(image, processed_image);
 
   detect(processed_image, rects);
   return rects;
-};
+}
 
 void BaseDetector::loadClassifier() {
   string path = env::getCascadePath(getCascadeName());
   classifier.load(path);
 
-  if(classifier.empty()){
+  if (classifier.empty()) {
     LOG(ERROR) << "Unable to load classifier file: " << path;
     throw DetectorError();
   }
-};
+}
 
 /*
  * ProfileFaceDetector
  */
-vector<Rect> ProfileFaceDetector::find(Mat &image, Mat &processed_image, vector<Rect> &rects) {
+vector<Rect> ProfileFaceDetector::find(Mat &image, Mat &processed_image,
+    vector<Rect> &rects) {
   Mat flipped;
   vector<Rect> flipped_rects;
 
@@ -35,12 +39,12 @@ vector<Rect> ProfileFaceDetector::find(Mat &image, Mat &processed_image, vector<
   detect(processed_image, rects);
   detect(flipped, flipped_rects);
 
-  if(flipped_rects.size() > 0){
+  if (flipped_rects.size() > 0) {
     rects.insert(rects.end(), flipped_rects.begin(), flipped_rects.end());
   }
 
   return rects;
-};
+}
 
 /*
  * Private
@@ -49,12 +53,12 @@ Mat BaseDetector::normalizeImage(Mat &image, Mat &image_out) {
   cvtColor(image, image_out, CV_BGR2GRAY);
   equalizeHist(image_out, image_out);
   return image_out;
-};
+}
 
 Mat BaseDetector::preprocessImage(Mat &image, Mat &image_out) {
   normalizeImage(image, image_out);
   return image_out;
-};
+}
 
 vector<Rect> BaseDetector::detect(Mat &image, vector<Rect> &rects) {
   classifier.detectMultiScale(image,
@@ -65,4 +69,4 @@ vector<Rect> BaseDetector::detect(Mat &image, vector<Rect> &rects) {
       min_size);
 
   return rects;
-};
+}
