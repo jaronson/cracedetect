@@ -1,17 +1,17 @@
-#ifndef ERRORS_H
-#define ERRORS_H
+#ifndef SRC_ERRORS_H_
+#define SRC_ERRORS_H_
 
 #include <exception>
 
-using namespace std;
+using std::exception;
 
 class StandardError : public exception {
-  public:
-    explicit StandardError(){};
+ public:
+    StandardError(){}
 };
 
 class DetectorError : public StandardError {
   using StandardError::StandardError;
 };
 
-#endif
+#endif  // SRC_ERRORS_H_
