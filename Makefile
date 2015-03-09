@@ -9,7 +9,7 @@ SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS  := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS   := -pipe -g -std=c++11
 LFLAGS   := $(shell pkg-config $(LIBS) --libs) -lboost_filesystem -lboost_system
-IFLAGS   := -I include -I vendor $(shell pkg-config $(LIBS) --cflags)
+IFLAGS   := -I . -I vendor $(shell pkg-config $(LIBS) --cflags)
 
 $(TARGET) : $(OBJECTS)
 	@echo " Linking ..."

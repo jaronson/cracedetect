@@ -6,7 +6,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     shell: {
       lint: {
-        command: 'cpplint include/* src/*'
+        command: 'cpplint src/*'
       },
 
       make: {
