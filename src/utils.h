@@ -1,19 +1,18 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef SRC_UTILS_H_
+#define SRC_UTILS_H_
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
-#include <glob.h>
 #include <opencv2/opencv.hpp>
+#include <glob.h>
+#include <string>
+#include <vector>
 
-using namespace std;
-using namespace cv;
+using std::string;
+using std::vector;
+using cv::Mat;
 
 namespace utils {
   vector<string> glob(const string& pattern);
   void normalizeImage(Mat source, Mat target);
 }
 
-#endif
+#endif  // SRC_UTILS_H_

@@ -3,9 +3,6 @@
 #include <vector>
 
 namespace utils {
-  using std::string;
-  using std::vector;
-
   vector<string> glob(const string& pattern) {
     glob_t glob_result;
     vector<string> ret;
@@ -22,7 +19,7 @@ namespace utils {
   }
 
   void normalizeImage(Mat source, Mat target) {
-    cvtColor(source, target, CV_BGR2GRAY);
-    equalizeHist(target, target);
+    cv::cvtColor(source, target, CV_BGR2GRAY);
+    cv::equalizeHist(target, target);
   }
 }  // namespace utils
