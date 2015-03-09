@@ -1,47 +1,48 @@
-#include "face.h"
+#include "./face.h"
+#include <vector>
 
 int Face::face_id = 0;
 
-Face::Face(){
+Face::Face() {
   id = Face::getNextId();
-};
+}
 
-int Face::getId(){
+int Face::getId() {
   return id;
-};
+}
 
-bool Face::getCanDelete(){
+bool Face::getCanDelete() {
   return can_delete;
-};
+}
 
-bool Face::getIsAvailable(){
+bool Face::getIsAvailable() {
   return is_available;
-};
+}
 
-bool Face::getIsDead(){
+bool Face::getIsDead() {
   return timer < 0;
-};
+}
 
-vector<Rect> Face::getRects(){
+vector<Rect> Face::getRects() {
   return rects;
-};
+}
 
-void Face::setCanDelete(bool value){
+void Face::setCanDelete(bool value) {
   can_delete = value;
-};
+}
 
-void Face::setIsAvailable(bool value){
+void Face::setIsAvailable(bool value) {
   is_available = value;
-};
+}
 
-void Face::setMatchLabel(int label){
+void Face::setMatchLabel(int label) {
   match_label = label;
-};
+}
 
-void Face::setRects(vector<Rect> new_rects){
+void Face::setRects(vector<Rect> new_rects) {
   rects = new_rects;
-};
+}
 
-void Face::decr(){
+void Face::decr() {
   timer--;
-};
+}

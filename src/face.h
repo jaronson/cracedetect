@@ -1,18 +1,19 @@
-#ifndef FACE_H
-#define FACE_H
+#ifndef SRC_FACE_H_
+#define SRC_FACE_H_
 
 #include <opencv2/opencv.hpp>
+#include <vector>
 
-using namespace cv;
-using namespace std;
+using cv::Rect;
+using std::vector;
 
 class Face {
-  public:
+ public:
     Face();
 
-    static int getNextId(){
+    static int getNextId() {
       return face_id++;
-    };
+    }
 
     int  getId();
     bool getCanDelete();
@@ -27,7 +28,7 @@ class Face {
 
     void decr();
 
-  private:
+ private:
     // Count of found faces for incrementing ids
     static int face_id;
 
@@ -44,6 +45,5 @@ class Face {
     int   timer        = timeout;
 
     vector<Rect> rects;
-
 };
-#endif
+#endif  // SRC_FACE_H_
