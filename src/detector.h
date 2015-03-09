@@ -17,7 +17,8 @@ using cv::Size;
 
 class BaseDetector {
  public:
-    vector<Rect> find(Mat &image, Mat &processed_image, vector<Rect> &rects);
+    vector<Rect> find(const Mat &image, Mat &processed_image,
+        vector<Rect> &rects);
     void loadClassifier();
 
  protected:
@@ -29,9 +30,9 @@ class BaseDetector {
     Size   min_size                 = Size(30, 30);
 
     virtual const string getCascadeName() = 0;
-    Mat normalizeImage(Mat &image, Mat &image_out);
-    Mat preprocessImage(Mat &image, Mat &image_out);
-    vector<Rect> detect(Mat &image, vector<Rect> &rects);
+    Mat normalizeImage(const Mat &image, Mat &image_out);
+    Mat preprocessImage(const Mat &image, Mat &image_out);
+    vector<Rect> detect(const Mat &image, vector<Rect> &rects);
 };
 
 class FrontalFaceDetector : public BaseDetector {
@@ -46,7 +47,8 @@ class ProfileFaceDetector : public BaseDetector {
     const string getCascadeName() override {
       return "lbp/profileface.xml";
     };
-    vector<Rect> find(Mat &image, Mat &processed_image, vector<Rect> &rects);
+    vector<Rect> find(const Mat &image, Mat &processed_image,
+        vector<Rect> &rects);
 };
 
 #endif  // SRC_DETECTOR_H_

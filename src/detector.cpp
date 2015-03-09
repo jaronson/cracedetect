@@ -6,7 +6,7 @@
  * BaseDetector
  */
 
-vector<Rect> BaseDetector::find(Mat &image, Mat &processed_image,
+vector<Rect> BaseDetector::find(const Mat &image, Mat &processed_image,
     vector<Rect> &rects) {
   preprocessImage(image, processed_image);
 
@@ -27,7 +27,7 @@ void BaseDetector::loadClassifier() {
 /*
  * ProfileFaceDetector
  */
-vector<Rect> ProfileFaceDetector::find(Mat &image, Mat &processed_image,
+vector<Rect> ProfileFaceDetector::find(const Mat &image, Mat &processed_image,
     vector<Rect> &rects) {
   Mat flipped;
   vector<Rect> flipped_rects;
@@ -49,18 +49,18 @@ vector<Rect> ProfileFaceDetector::find(Mat &image, Mat &processed_image,
 /*
  * Private
  */
-Mat BaseDetector::normalizeImage(Mat &image, Mat &image_out) {
+Mat BaseDetector::normalizeImage(const Mat &image, Mat &image_out) {
   cvtColor(image, image_out, CV_BGR2GRAY);
   equalizeHist(image_out, image_out);
   return image_out;
 }
 
-Mat BaseDetector::preprocessImage(Mat &image, Mat &image_out) {
+Mat BaseDetector::preprocessImage(const Mat &image, Mat &image_out) {
   normalizeImage(image, image_out);
   return image_out;
 }
 
-vector<Rect> BaseDetector::detect(Mat &image, vector<Rect> &rects) {
+vector<Rect> BaseDetector::detect(const Mat &image, vector<Rect> &rects) {
   classifier.detectMultiScale(image,
       rects,
       classifier_scale_factor,
