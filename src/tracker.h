@@ -1,23 +1,24 @@
-#ifndef TRACKER_H
-#define TRACKER_H
+#ifndef SRC_TRACKER_H_
+#define SRC_TRACKER_H_
 
 #include <opencv2/opencv.hpp>
-#include "easylogging++.h"
-#include "environment.h"
-#include "utils.h"
-#include "detector.h"
+#include <vector>
+#include "vendor/easylogging++.h"
+#include "./environment.h"
+#include "./utils.h"
+#include "./detector.h"
 
-using namespace cv;
-using namespace std;
 namespace env = environment;
 
-class FaceTracker {
+using std::vector;
+using cv::Mat;
 
-  public:
+class FaceTracker {
+ public:
     void run();
     FaceTracker();
 
-  private:
+ private:
     CvCapture*  capture;
     Mat         frame_in;
 
@@ -31,4 +32,4 @@ class FaceTracker {
     void display();
 };
 
-#endif
+#endif  // SRC_TRACKER_H_

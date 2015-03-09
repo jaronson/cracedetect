@@ -1,19 +1,20 @@
-#include "tracker.h"
+#include "./tracker.h"
+#include <vector>
 
-FaceTracker::FaceTracker(){
+FaceTracker::FaceTracker() {
   frontal_detector.loadClassifier();
   profile_detector.loadClassifier();
-};
+}
 
 // Public methods
-void FaceTracker::run(){
+void FaceTracker::run() {
   initCapture();
 
-  if(capture){
-    while(true){
+  if (capture) {
+    while (true) {
       frame_in = cvQueryFrame(capture);
 
-      if(!frame_in.empty()){
+      if (!frame_in.empty()) {
         detect();
         display();
       } else {
@@ -22,14 +23,14 @@ void FaceTracker::run(){
 
       int c = waitKey(10);
 
-      if((0xFF & c) == 27){
+      if ((0xFF & c) == 27) {
         break;
       }
     }
   }
 }
 
-void FaceTracker::detect(){
+void FaceTracker::detect() {
   Mat processed;
   vector<Rect> frontal_rects;
   vector<Rect> profile_rects;
@@ -41,18 +42,18 @@ void FaceTracker::detect(){
   found_rects.push_back(profile_rects);
 }
 
-void FaceTracker::display(){
+void FaceTracker::display() {
   Scalar color;
   int i = 0;
 
-  for(auto rect_set : found_rects){
-    if(i % 2 == 0){
+  for (auto rect_set : found_rects) {
+    if (i % 2 == 0) {
       color = Scalar(0, 255, 0);
     } else {
       color = Scalar(0, 0, 255);
     }
 
-    for(auto rect : rect_set){
+    for (auto rect : rect_set) {
       rectangle(frame_in, rect.tl(), rect.br(), color);
     }
 
@@ -65,6 +66,6 @@ void FaceTracker::display(){
 
 // Private methods
 
-void FaceTracker::initCapture(){
+void FaceTracker::initCapture() {
   capture = cvCaptureFromCAM(0);
 }
