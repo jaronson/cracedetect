@@ -2,7 +2,6 @@
 
 FaceTracker::FaceTracker(){
   frontal_detector.loadClassifier();
-  profile_detector.loadClassifier();
 };
 
 // Public methods
@@ -14,7 +13,7 @@ void FaceTracker::run(){
       frame_in = cvQueryFrame(capture);
 
       if(!frame_in.empty()){
-        detect();
+        detectFrontal();
         display();
       } else {
         LOG(INFO) << "No captured frame!";
@@ -27,19 +26,38 @@ void FaceTracker::run(){
       }
     }
   }
-}
+};
 
-void FaceTracker::detect(){
+// Private methods
+void FaceTracker::createFaces(){
+  for(auto rect_set : found_rects){
+    for(auto rect : rect_set){
+      Face face;
+      faces.push_back(face);
+    }
+  }
+};
+
+void FaceTracker::cullFaces(){
+  vector<Face> preserved;
+
+  for(auto face : faces){
+    if(!face.getCanDelete()){
+      preserved.push_back(face);
+    }
+  }
+
+  faces = preserved;
+};
+
+void FaceTracker::detectFrontal(){
   Mat processed;
   vector<Rect> frontal_rects;
-  vector<Rect> profile_rects;
 
   frontal_detector.find(frame_in, processed, frontal_rects);
-  profile_detector.find(frame_in, processed, profile_rects);
 
   found_rects.push_back(frontal_rects);
-  found_rects.push_back(profile_rects);
-}
+};
 
 void FaceTracker::display(){
   Scalar color;
@@ -61,10 +79,22 @@ void FaceTracker::display(){
 
   cv::imshow("Faces", frame_in);
   found_rects.clear();
-}
+};
 
-// Private methods
+void FaceTracker::matchFoundRects(){
+  for(auto face : faces){
+    for(auto rect_set: found_rects){
+      int top = 50000;
+      int i   = 0;
+      int j;
+      vector<Rect> face_rects;
+
+      for(auto rect : rect_set){
+      }
+    }
+  }
+};
 
 void FaceTracker::initCapture(){
   capture = cvCaptureFromCAM(0);
-}
+};

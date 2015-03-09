@@ -4,7 +4,6 @@
 #include <opencv2/opencv.hpp>
 #include "easylogging++.h"
 #include "environment.h"
-#include "utils.h"
 #include "detector.h"
 
 using namespace cv;
@@ -22,13 +21,19 @@ class FaceTracker {
     Mat         frame_in;
 
     vector<vector<Rect>> found_rects;
+    vector<Face> faces;
 
     FrontalFaceDetector frontal_detector;
     ProfileFaceDetector profile_detector;
 
     void initCapture();
-    void detect();
+    void createFaces();
+    void cullFaces();
+    void detectFrontal();
+    void detectProfile();
     void display();
+    void matchFoundRects();
+    void markOldFaces();
 };
 
 #endif

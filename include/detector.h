@@ -4,6 +4,7 @@
 #include <opencv2/opencv.hpp>
 #include "environment.h"
 #include "errors.h"
+#include "face.h"
 
 using namespace cv;
 using namespace std;
