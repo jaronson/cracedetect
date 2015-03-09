@@ -35,12 +35,18 @@ module.exports = function(grunt) {
     'shell:make'
   ]);
 
+  grunt.registerTask('build', [
+    'lint',
+    'make'
+  ]);
+
   grunt.registerTask('all', [
+    'clean',
     'lint',
     'make'
   ]);
 
   grunt.registerTask('default', [
-    'build'
+    'all'
   ]);
 };
