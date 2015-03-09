@@ -1,0 +1,11 @@
+{
+  "name": "cracedetect",
+  "private": true,
+  "devDependencies": {
+    "grunt":                "",
+    "grunt-contrib-clean":  "",
+    "grunt-contrib-watch":  "latest",
+    "grunt-bg-shell":       "",
+  },
+  "dependencies": {}
+}

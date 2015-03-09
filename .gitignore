@@ -1,3 +1,4 @@
 build/*.o*
 bin/racedetect
 logs
+node_modules

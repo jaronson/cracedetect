@@ -14,7 +14,6 @@ IFLAGS   := -I include -I vendor $(shell pkg-config $(LIBS) --cflags)
 $(TARGET) : $(OBJECTS)
 	@echo " Linking ..."
 	@echo "$(CC) $^ -o $(TARGET) $(LFLAGS)"; $(CC) $^ -o $(TARGET) $(LFLAGS)
-	@echo "--- Done ---"
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@echo " $(CC) $(CFLAGS) $(IFLAGS) -c -o $@ $<"; $(CC) $(CFLAGS) $(IFLAGS) -c -o $@ $<
