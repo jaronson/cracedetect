@@ -1,10 +1,11 @@
-#include "environment.h"
+#include "./environment.h"
+#include <string>
 
 namespace environment {
-  // TODO: Move to compile-time constant
+  // TODO(jaronson): Move to compile-time constant
   extern const string app_root = "/usr/dev/jaronson/cracedetect";
 
-  string const cascadesDir(){
+  string const cascadesDir() {
     fs::path root(app_root);
     fs::path cascades_dir("data/cascades");
     fs::path full_path = root / cascades_dir;
@@ -12,7 +13,7 @@ namespace environment {
     return full_path.string();
   }
 
-  string getCascadePath(const string cascade_path){
+  string getCascadePath(const string cascade_path) {
     fs::path root(cascadesDir());
     fs::path casc(cascade_path);
     fs::path full_path = root / casc;
@@ -20,8 +21,8 @@ namespace environment {
     return full_path.string();
   }
 
-  void logAll(){
+  void logAll() {
     LOG(DEBUG) << "app_root: " << app_root;
     LOG(DEBUG) << "cascadesDir(): " << cascadesDir();
   }
-}
+}  // namespace environment

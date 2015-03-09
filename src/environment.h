@@ -1,12 +1,13 @@
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H
+#ifndef SRC_ENVIRONMENT_H_
+#define SRC_ENVIRONMENT_H_
 
-#include <string>
 #include <boost/filesystem.hpp>
-#include "easylogging++.h"
+#include <string>
+#include "vendor/easylogging++.h"
 
-using namespace std;
 namespace fs = boost::filesystem;
+
+using std::string;
 
 namespace environment {
 
@@ -17,4 +18,4 @@ namespace environment {
   void logAll();
 }
 
-#endif
+#endif  // SRC_ENVIRONMENT_H_
