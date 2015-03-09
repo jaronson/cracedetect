@@ -1,17 +1,13 @@
-#ifndef RECOGNIZER_H
-#define RECOGNIZER_H
+#ifndef SRC_RECOGNIZER_H_
+#define SRC_RECOGNIZER_H_
 
-#include <iostream>
 #include <opencv2/opencv.hpp>
-
-#include "utils.h"
-
-using namespace cv;
-using namespace std;
+#include <iostream>
+#include "./utils.h"
 
 class Recognizer {
-    private:
-        Ptr<FaceRecognizer> model;
+ private:
+    cv::Ptr<cv::FaceRecognizer> model;
 };
 
-#endif
+#endif  // SRC_RECOGNIZER_H_
