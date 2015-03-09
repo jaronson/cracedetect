@@ -1,37 +1,38 @@
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-bg-shell');
+  grunt.loadNpmTasks('grunt-shell');
 
   grunt.initConfig({
-    bgShell: {
-      _defaults: {
-        bg: false,
-        execOpts: {
-          maxBuffer: false
-        }
+    shell: {
+      lint: {
+        command: 'cpplint include/* src/*'
       },
 
       make: {
-        cmd: 'make -j 4'
-      },
+        command: 'make -j4'
+      }
     },
 
     clean: ['build/*', 'bin/*'],
 
     watch: {
+      options: {
+        atBegin: true
+      },
       src: {
-        files: [
-          'src/*', 'include/*'
-        ],
-        tasks: ['make']
+        files: ['src/*', 'include/*'],
+        tasks: ['build']
       }
     }
   });
 
   grunt.registerTask('build', [
-    'bgShell:make'
+    'shell:lint',
+    'shell:make'
   ]);
 
-  grunt.registerTask('default', []);
+  grunt.registerTask('default', [
+    'build'
+  ]);
 };
