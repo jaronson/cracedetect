@@ -21,17 +21,15 @@ TEST_OBJS     := $(patsubst $(TEST_DIR)/%,$(BUILD_DIR)/%,$(TESTS:.cpp=.o))
 GTEST_SRCS_   := $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
 $(TARGET) : $(OBJECTS)
-	@echo " Linking ..."
-	@echo "$(CC) $^ -o $(TARGET) $(LFLAGS)"; $(CC) $^ -o $(TARGET) $(LFLAGS)
+	$(CC) $^ -o $(TARGET) $(LFLAGS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.$(SRCEXT)
-	@echo " $(CC) $(CFLAGS) $(IFLAGS) -c -o $@ $<"; $(CC) $(CFLAGS) $(IFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) $(IFLAGS) -c -o $@ $<
 
 tests: algorithm_unittest
 
 clean:
-	@echo " Cleaning ..."
-	@echo " $(RM) -r $(BUILD_DIR)/* $(TARGET) $(TESTS)"; $(RM) -r $(BUILD_DIR)/* $(TARGET)
+	$(RM) -r $(BUILD_DIR)/* $(TARGET)
 
 $(BUILD_DIR)/gtest-all.o : $(GTEST_SRCS_)
 	$(CC) $(IFLAGS) -I$(GTEST_DIR) $(CFLAGS) -c $(GTEST_DIR)/src/gtest-all.cc -o $@
