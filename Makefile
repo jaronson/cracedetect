@@ -17,8 +17,10 @@ IFLAGS   := -I . -I vendor $(shell pkg-config $(LIBS) --cflags) -isystem $(GTEST
 
 TEST_SRCS     := $(SRC_DIR)/algorithm.h
 TEST_SRC_OBJS := $(BUILD_DIR)/algorithm.o
-TEST_OBJS     := $(patsubst $(TEST_DIR)/%,$(BUILD_DIR)/%,$(TESTS:.cpp=.o))
+TEST_OBJS     := $(patsubst $(TEST_DIR)/%,$(BUILD_DIR)/%,$(:.cpp=.o))
 GTEST_SRCS_   := $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
+
+all : $(TARGET)
 
 $(TARGET) : $(OBJECTS)
 	$(CC) $^ -o $(TARGET) $(LFLAGS)
