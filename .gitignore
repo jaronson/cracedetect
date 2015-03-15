@@ -1,4 +1,6 @@
 build/*.o*
+build/*.a*
+build/*test*
 bin/racedetect
 logs
 node_modules
