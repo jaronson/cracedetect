@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         atBegin: true
       },
       src: {
-        files: ['src/*', 'include/*'],
+        files: ['src/*', 'include/*', 'test/*'],
         tasks: ['build']
       }
     }
