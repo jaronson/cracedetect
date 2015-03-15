@@ -9,8 +9,16 @@ module.exports = function(grunt) {
         command: 'cpplint src/*'
       },
 
-      make: {
+      makeAll: {
         command: 'make -j4'
+      },
+
+      makeTests: {
+        command: 'make -j4 tests'
+      },
+
+      test: {
+        command: 'for t in build/*unittest; do $t; done'
       }
     },
 
@@ -32,18 +40,25 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('make', [
-    'shell:make'
+    'shell:makeAll',
+    'shell:makeTests'
+  ]);
+
+  grunt.registerTask('test', [
+    'shell:test'
   ]);
 
   grunt.registerTask('build', [
     'lint',
-    'make'
+    'make',
+    'test'
   ]);
 
   grunt.registerTask('all', [
     'clean',
     'lint',
-    'make'
+    'make',
+    'test'
   ]);
 
   grunt.registerTask('default', [
