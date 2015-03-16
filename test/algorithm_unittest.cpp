@@ -2,5 +2,5 @@
 #include "gtest/gtest.h"
 
 TEST(AlgorithmTest, Falsy){
-  EXPECT_TRUE(false);
+  EXPECT_FALSE(false);
 }
