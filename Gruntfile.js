@@ -5,6 +5,11 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     shell: {
+      options: {
+        execOptions: {
+          maxBuffer: Infinity
+        }
+      },
       lint: {
         command: 'cpplint src/*'
       },
@@ -49,14 +54,12 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'lint',
     'make',
     'test'
   ]);
 
   grunt.registerTask('all', [
     'clean',
-    'lint',
     'make',
     'test'
   ]);
