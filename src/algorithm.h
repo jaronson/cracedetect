@@ -5,13 +5,11 @@
 #include <iostream>
 
 using cv::Mat;
+using std::cout;
+using std::endl;
 
 namespace algorithm {
-  float getPixelRatio(float current_pixel, float neighbor);
-  Mat extractWLD(const Mat &image,
-      int n_subhistograms,  // T
-      int n_segments,       // M
-      int n_bins);          // S
+  Mat extractWLD(const Mat &image, int T, int M, int S);
 }
 
 #endif  // SRC_ALGORITHM_H_

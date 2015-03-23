@@ -3,7 +3,7 @@
 
 #include <boost/filesystem.hpp>
 #include <string>
-#include "vendor/easylogging++.h"
+#include "easylogging++.h"
 
 namespace fs = boost::filesystem;
 

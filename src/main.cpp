@@ -1,5 +1,5 @@
 #include <iostream>
-#include "vendor/easylogging++.h"
+#include "easylogging++.h"
 #include "./tracker.h"
 
 INITIALIZE_EASYLOGGINGPP

@@ -3,7 +3,7 @@
 
 #include <opencv2/opencv.hpp>
 #include <vector>
-#include "vendor/easylogging++.h"
+#include "easylogging++.h"
 #include "./environment.h"
 #include "./utils.h"
 #include "./detector.h"

@@ -1,0 +1,10 @@
+add_library(core
+  algorithm.cpp
+  detector.cpp
+  environment.cpp
+  errors.cpp
+  face.cpp
+  recognizer.cpp
+  tracker.cpp
+  utils.cpp
+  )

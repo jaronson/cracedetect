@@ -1,68 +1,50 @@
 #include "./algorithm.h"
 
-float algorithm::getPixelRatio(float current_pixel, float neighbor) {
-  float ret = 0.0;
+Mat algorithm::extractWLD(const Mat &image, int T = 8, int M = 6, int S = 20) {
 
-  if (current_pixel == 0) {
-    return ret;
-  }
+  int y_size        = image.cols,
+      x_size        = image.rows,
+      step          = image.step,
+      block_size_y  = 3,
+      block_size_x  = 3,
+      delta         = 5,
+      alpha         = 3,
+      num_neighbors = 8;
 
-  ret = neighbor - current_pixel;
-  ret = ret / current_pixel;
+  double epsilon = 0.0000001;
+  double pi      = 3.141592653589;
 
-  return ret;
-}
+  int dx = x_size - block_size_x,
+      dy = y_size - block_size_y;
 
-Mat algorithm::extractWLD(
-    const Mat &image,
-    int n_subhistograms = 8,
-    int n_segments = 6,
-    int n_bins = 20) {
-  Mat hist(n_segments, n_subhistograms * n_bins, CV_32SC1, double(0));
-  unsigned char *ptr = (unsigned char*)(image.data) + image.step + 1;
-  int i, j;
+  Mat differential_excitation(dy + 1, dx + 1, CV_32SC1, double(0));
+  Mat gradient_orientation(dy + 1, dx + 1, CV_32SC1, double(0));
+  unsigned char *ptr = (unsigned char*)(image.data) + step + 1;
 
-  for (i = 1; i < image.rows - 1; ++i) {
-    for (j = 1; j < image.cols - 1; ++j) {
-      float cur   = ptr[0];
-      float sigma = getPixelRatio(cur, ptr[-image.step - 1]) +
-                    getPixelRatio(cur, ptr[-image.step]) +
-                    getPixelRatio(cur, ptr[-image.step + 1]) +
-                    getPixelRatio(cur, ptr[-1]) +
-                    getPixelRatio(cur, ptr[1]) +
-                    getPixelRatio(cur, ptr[image.step - 1]) +
-                    getPixelRatio(cur, ptr[image.step]) +
-                    getPixelRatio(cur, ptr[image.step + 1]);
+  for (int y = 1; y < y_size - 2; ++y) {
+    for (int x = 1; x < x_size - 2; ++x) {
+      float v00 = ptr[-step - 1] +
+                  ptr[-step] +
+                  ptr[-step + 1] +
+                  ptr[-1] +
+                  ptr[1] +
+                  ptr[step - 1] +
+                  ptr[step] +
+                  ptr[step + 1];
 
-      sigma = cv::fastAtan2(sigma, cur);
+      float v01 = ptr[0] + delta;
 
-      if (sigma > 180.0) {
-        sigma = sigma - 360.0;
+      if (v01 > 0 && v01 < 0.01) {
+        differential_excitation.at<double>(y,x) = cv::fastAtan2(alpha * v00, v01);
+      } else {
+        differential_excitation.at<double>(y,x) = 0.1;
       }
-
-      float theta = cv::fastAtan2(
-          ptr[image.step] - ptr[-image.step],
-          ptr[-1] - ptr[1]);
-
-      int t = (int)(theta / 360.0 * n_subhistograms);
-      int c = (int)((sigma + 90.0) / 180.0 * n_segments * n_bins);
-
-      uchar a = (unsigned char) (t * n_bins +
-                  (c % n_bins) +
-                  (int)(c / n_bins) *
-                  n_bins *
-                  n_subhistograms);
-
-      hist.data[a]++;
 
       ptr++;
     }
 
-    ptr += image.step - image.cols + 2;
+    ptr += step - y_size + 2;
   }
 
-  Mat hist_norm(n_segments, n_bins * n_subhistograms, CV_32FC1);
-  cv::resize(hist, hist_norm, cv::Size(image.rows - 2, image.cols - 2));
-
-  return hist_norm;
+  return gradient_orientation;
 }
