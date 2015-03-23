@@ -1,6 +1,10 @@
 # cracedetect
 cracedetect is a live face detection & recognition application using OpenCV.
 
+# Building
+* `mkdir build`
+* `cd build && cmake .. && make`
+
 # Development
 
 * `npm install -g grunt`
