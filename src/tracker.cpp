@@ -7,7 +7,6 @@ FaceTracker::FaceTracker() {
 void FaceTracker::run() {
 }
 
-/*
 FaceTracker::FaceTracker() {
   frontal_detector.loadClassifier();
   profile_detector.loadClassifier();
@@ -76,4 +75,3 @@ void FaceTracker::display() {
 void FaceTracker::initCapture() {
   capture = cvCaptureFromCAM(0);
 }
-*/

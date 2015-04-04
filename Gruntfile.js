@@ -44,24 +44,17 @@ module.exports = function(grunt) {
     'shell:lint'
   ]);
 
+  grunt.registerTask('cmake', [
+    
+  ]);
+
   grunt.registerTask('make', [
-    'shell:makeAll',
-    'shell:makeTests'
-  ]);
-
-  grunt.registerTask('test', [
-    'shell:test'
-  ]);
-
-  grunt.registerTask('build', [
-    'make',
-    'test'
   ]);
 
   grunt.registerTask('all', [
     'clean',
-    'make',
-    'test'
+    'cmake'
+    'make'
   ]);
 
   grunt.registerTask('default', [

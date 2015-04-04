@@ -1,7 +1,6 @@
 #include "./algorithm.h"
 
 Mat algorithm::extractWLD(const Mat &image, int T = 8, int M = 6, int S = 20) {
-
   int y_size        = image.cols,
       x_size        = image.rows,
       step          = image.step,
@@ -38,6 +37,32 @@ Mat algorithm::extractWLD(const Mat &image, int T = 8, int M = 6, int S = 20) {
         differential_excitation.at<double>(y,x) = cv::fastAtan2(alpha * v00, v01);
       } else {
         differential_excitation.at<double>(y,x) = 0.1;
+      }
+
+      int n1 = ptr[-step - 1];
+      int n5 = ptr[step + 1];
+      int n3 = ptr[1];
+      int n7 = ptr[-1];
+
+      if (abs( (float)(n7 - n3) ) < epsilon) {
+        gradient_orientation.at<double>(y,x) = 0;
+      } else {
+        float v10 = (float) n5 - n1;
+        float v11 = (float) n7 - n3;
+
+        float val = cv::fastAtan2(v10, v11) * 180 / pi;
+
+        if (v11 > epsilon && v10 > epsilon) {
+          val = val + 0;
+        } else if (v11 < -epsilon && v10 > epsilon) {
+          val = val + 180;
+        } else if (v11 < -epsilon && v10 < -epsilon) {
+          val = val + 180;
+        } else if (v11 > epsilon && v10 < -epsilon) {
+          val = val + 360;
+        }
+
+        gradient_orientation.at<double>(y,x) = val;
       }
 
       ptr++;
